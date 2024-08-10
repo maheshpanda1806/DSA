@@ -1,5 +1,7 @@
-public class MaxDepthOfTree {
-    /**
+public class MiDepthOfTree {
+    
+}
+/**
  * Definition for a binary tree node.
  * public class TreeNode {
  *     int val;
@@ -15,29 +17,6 @@ public class MaxDepthOfTree {
  * }
  */
 class Solution {
-    public int maxDepth(TreeNode root) {
-        if(root==null) return 0;
-        int left = maxDepth(root.left);
-        int right = maxDepth(root.right);
-        return Math.max(left,right)+1;
-    }
-}
-   /**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- *///Mn depth
-class Solution1 {
     public int min;
     public int minDepth(TreeNode root) {
          if(root==null) return 0;
@@ -54,5 +33,4 @@ class Solution1 {
         helper(root.left,depth+1);
         helper(root.right,depth+1);
     }
-}
 }
