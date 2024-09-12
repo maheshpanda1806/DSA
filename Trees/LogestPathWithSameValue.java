@@ -18,7 +18,7 @@ public class LogestPathWithSameValue {
  */
 class Solution {
     int max;
-    public int longestUnivaluePath(TreeNode root) {
+    public int longestUnivaluePath(TreeNode root){
         max = 0;
         if(root==null) return 0;
         traverse(root);
