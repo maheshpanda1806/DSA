@@ -55,6 +55,7 @@ public class MazeTarget {
     int rightCount = mazeSolnObstacles( arr,r, c+1, tr, tc, ans+"R");
     return leftCount+rightCount+diagnolCount;
 }
+//
 public static int mazeSoln(int r, int c, int tr, int tc, String ans, boolean[][] visited) {
    if (r < 0 || c < 0 || r > tr || c > tc || visited[r][c]) {
        return 0;

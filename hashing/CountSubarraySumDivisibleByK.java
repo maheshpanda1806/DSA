@@ -18,7 +18,6 @@ public class CountSubarraySumDivisibleByK {
             }
             mpp.put(rem, mpp.getOrDefault(rem, 0) + 1);
         }
-
         return count;
     }
 }

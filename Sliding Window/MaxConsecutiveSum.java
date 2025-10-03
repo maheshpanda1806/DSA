@@ -19,9 +19,7 @@ public class MaxConsecutiveSum {
     int max = sum;
     while (r<nums.length-1) {
         sum = sum - nums[l];
-        l++;
-         r++;
-        
+        l++;r++;
         sum = sum + nums[r];
         if(sum>max){
             max = sum;

@@ -1,25 +1,20 @@
 public class CheckBalancedTree {
     class Solution {
-        public boolean isBalanced(TreeNode root) {
-            if(root == null) return true;
-            int lh = maxDepth(root.left);
-            int rh = maxDepth(root.right);
-            if(Math.abs(lh-rh)>1) return false;
-            boolean left = isBalanced(root.left);
-            if(!left) return false;
-            boolean right = isBalanced(root.right);
-            if(!right) return false;
-    
-            return true;
-    
-            
-        }
-        public int maxDepth(TreeNode root) {
-            if(root == null) return 0;
-            int leftHeight = maxDepth(root.left);
-            int rightHeight = maxDepth(root.right);
-            return Math.max(leftHeight,rightHeight) + 1;
-        }
+    boolean balanced; 
+    public boolean isBalanced(TreeNode root) {
+        balanced = true;
+        rec(root);
+        return balanced;
     }
+    public int rec(TreeNode root){
+        if(root==null) return 0;
+
+        int left = rec(root.left);
+        int right = rec(root.right);
+        if(Math.abs(left-right)>1) balanced = false;
+
+        return 1 + Math.max(left,right);
+    }
+}
     
 }

@@ -1,0 +1,68 @@
+**Pseudocode for GA‑SVM Based Facial Emotion Recognition (No Math Symbols)**
+
+```plaintext
+// --- Main Workflow ---
+Input: A collection of face images each labeled with an emotion
+Output: A trained support vector machine (SVM) model and the selected parameters
+
+1. Prepare the Data:
+   - Randomly shuffle the image collection
+   - Split into two sets: 90% for training and validation, 10% for final testing
+   - From the 90%, reserve 10% for validation and the remaining 90% of that for training
+
+2. Detect Facial Landmarks and Extract Features:
+   For each image in training, validation, and test sets:
+     a. Use Dlib to locate sixty‑eight key points on the face (landmarks)
+     b. Find the center point by averaging all landmark positions
+     c. For each landmark:
+         • Compute the straight‑line distance from the center point
+         • Compute the angle between the horizontal axis and the line from center to landmark
+     d. Group landmarks into facial segments based on facial action units
+     e. For each segment of landmarks:
+         • Fit a smooth polynomial curve of degree three through the segment
+         • At each landmark on the curve, measure how sharply the curve bends (curvature)
+     f. Combine the distance, angle, and curvature measurements into one feature vector for the image
+
+3. Initialize Genetic Algorithm (GA):
+   - Define a candidate solution as a set of three parts:
+       1. The SVM regularization parameter choice from a predefined list of values
+       2. The weight given to curvature versus distance/angle in the feature vector
+       3. A yes/no mask indicating which landmarks to include
+   - Set GA parameters:
+       • Population size: ten candidate solutions
+       • Number of generations: three hundred
+       • Mutation rate: four percent chance to alter any part of a solution
+   - Create the initial population by randomly selecting values for each part of each solution
+
+4. Evolve Solutions Over Generations:
+   Repeat for each generation:
+     a. Evaluate Fitness of Each Candidate:
+         i.   For a given solution, build feature matrices by:
+               – Keeping only the landmarks marked "yes"
+               – Scaling curvature features by the curvature weight
+               – Scaling distance and angle features by the remaining weight
+         ii.  Train a linear SVM on the training images using the chosen regularization value
+         iii. Test on the validation images and record the percentage of correct emotion labels
+     b. Select Parents for Next Generation:
+         - Use a roulette‑wheel method where better solutions have higher chance to be chosen
+     c. Create New Population:
+         - For each new candidate:
+             • Combine parts of two parent solutions (crossover)
+             • Randomly change some parts with small probability (mutation)
+     d. Replace the old population with the new one
+
+5. Choose the Best Solution:
+   - After all generations, pick the solution with the highest validation accuracy
+   - Extract its landmark mask, regularization choice, and feature weight
+
+6. Final Model Training and Testing:
+   - Using the selected landmarks and feature weight, build feature data for training and testing
+   - Train a final SVM on the combined training and validation images
+   - Evaluate performance on the held‑out test images
+
+7. Report:
+   - List which landmarks were used
+   - State the chosen regularization value and feature weight
+   - Provide the test accuracy percentage
+
+

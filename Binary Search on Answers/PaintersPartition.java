@@ -1,18 +1,30 @@
 public class PaintersPartition {
     public static void main(String[] args) {
         
-      } //check is we can complete painting the all walls in max  minutes using <=k painters?
+      }
+       //check is we can complete painting the all walls in <= max  minutes using <=k painters?
     public static int check(int[]arr, int k, int minutes){
         int lastTimeRem = minutes;
         int painterCount=k;
         for(int i=0;i<arr.length;i++){
+            
+            if (arr[i] > minutes) {
+                return 0;  // No painter can handle this section
+            }
             if(arr[i]<=lastTimeRem){
                 lastTimeRem-=arr[i];
+            }else{
+                painterCount--;
+                if(painterCount<=0) return 0;
+                lastTimeRem = minutes;
+
+                i--;//recheck this one
             }
         }
+        return 1;
     }
-    public static int bs(int[] wall,int k){
-        long s=0,e=sum(arr);
+    public static int bs(int[] arr,int k){
+        int s=0,e=sum(arr);
         int ans=-1;
         while(e>=s){
             int m = (s+e)>>1;
@@ -24,6 +36,11 @@ public class PaintersPartition {
             }
         }
         return ans;
+    }
+    public static int sum(int[]arr){
+         int sum = 0;
+         for(int i : arr) sum+=i;
+         return sum;
     }
     
 }

@@ -1,5 +1,44 @@
+import java.util.*;
 public class climbingStairs {
+    //memoization
+    static class Solution {
+        public int climbStairs(int n) {
+            int[] dp = new int[n+1];
+            Arrays.fill(dp,-1);
+
+            //tabulation
+            dp[0] = 1;
+
+            for(int i =1;i<=n;i++){
+                if(i>1) dp[i] = dp[i-1] + dp[i-2];
+                else dp[i] = dp[i-1];
+            }
+
+            return dp[n];
+        }
+        public int rec(int level,int[] dp ){//function to reach 0 from level
+           //base case
+           if(level==0) return dp[level]= 1;
+           
+           if(dp[level]!=-1) return dp[level];
+           int steps=0;
+           steps+=rec(level-1,dp);
     
+           if(level>1) steps += rec(level-2,dp);
+    
+           return dp[level]=steps;
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        int n = sc.nextInt();
+
+        Solution solution = new Solution();
+        int ans = solution.climbStairs(n);
+
+        System.out.println(ans);
+    }
 }
 
 /*You are climbing a staircase. It takes n steps to reach the top.
@@ -24,17 +63,4 @@ Explanation: There are three ways to climb to the top.
 2. 1 step + 2 steps
 3. 2 steps + 1 step*/
 // IS THE SAME AS FIBONACCI NUMBER
-    public int climbStairs(int n) {
-    int[] dp = new int [n+1];
-    Arrays.fill(dp,-1);
-    return soln(n,dp);
-    }
-    public int soln(int n,int[] dp){
-        if(n==0 || n==1) return 1;
-        if(dp[n]!=-1) return dp[n];
-        
-        int c = soln(n-1,dp);
-        int d = soln(n-2, dp);
-        dp[n] = c+d;
-        return dp[n];
-    }
+  

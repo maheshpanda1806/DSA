@@ -7,7 +7,7 @@ import java.util.Queue;
 
 import javax.swing.tree.TreeNode;
 
-public class TravelToParent {
+public class TravelToParentPattern {
     //Infection
     class Solution {
         TreeNode startNode = null;

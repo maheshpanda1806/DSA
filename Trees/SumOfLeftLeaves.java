@@ -1,6 +1,6 @@
 import javax.swing.tree.TreeNode;
-float  teahesusHowToUseFlagsForIdetificatioOfLeftOrRightChild;
-public class SumOfLeftLeaves {
+//float  //teaches us How To Use Flags For Idetification Of Left Or Right Child;
+public class SumOfLeftLeaves { 
     class Solution {
     int sum;
     public int sumOfLeftLeaves(TreeNode root) {

@@ -42,4 +42,19 @@ class Solution {
 
         return Math.max(alone, Math.max(includingLeft, includingRight));
     }
+    //also correct
+    public int rec(TreeNode root){
+        if(root==null) return 0;
+
+        int left =  rec(root.left);
+        int right = rec(root.right);
+
+        if(left<0) left =0;
+        if(right<0) right =0;
+
+        
+        if(left+right+root.val>max) max = left+right+root.val;
+        
+        return root.val + Math.max(left,right);
+    }
 }

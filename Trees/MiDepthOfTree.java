@@ -17,20 +17,17 @@ public class MiDepthOfTree {
  * }
  */
 class Solution {
-    public int min;
     public int minDepth(TreeNode root) {
-         if(root==null) return 0;
-        min=Integer.MAX_VALUE;
-        helper(root,1);
-        return min;
+        if(root==null) return 0;
+        return rec(root);
     }
-    public void helper(TreeNode root,int depth){
-        if(root==null) return;
-        if(root.left==null && root.right==null){
-           min = Math.min(min,depth);
-           return;
-        }
-        helper(root.left,depth+1);
-        helper(root.right,depth+1);
+    public int rec(TreeNode root){
+        if(root==null) return (int)1e9;
+        if(root.left==null && root.right==null) return 1;
+
+        int left = rec(root.left);
+        int right = rec(root.right);
+
+        return 1 + Math.min(left,right);
     }
 }

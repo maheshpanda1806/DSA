@@ -43,25 +43,43 @@ public class SumOfNodesFromRoot {
  *         this.right = right; 
  *     }
  * }
+ *//**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
  */
 class Solution {
+    int ans;
     public int sumNumbers(TreeNode root) {
-        return helper(root, 0);
+        if(root.left==null && root.right==null) return root.val;
+        ans = 0;
+        rec(root,null);
+        return ans;
     }
-
-    private int helper(TreeNode root, int currentSum) {
-        if (root == null) {
-            return 0;
+    public void rec(TreeNode root,Integer num){
+        if(root==null) return;
+        if(root.left==null && root.right==null){
+            num = 10*num + root.val;
+            ans = ans + num;
+            return;
         }
 
-        currentSum = currentSum * 10 + root.val;
-
-        // If it's a leaf node, return the current sum
-        if (root.left == null && root.right == null) {
-            return currentSum;
+        if(num==null){
+           rec(root.left,root.val);
+           rec(root.right,root.val);
+        }else{
+           rec(root.left,10*num + root.val);
+           rec(root.right,10*num + root.val);
         }
-        return helper(root.left, currentSum) + helper(root.right, currentSum);
     }
-}
-
 }

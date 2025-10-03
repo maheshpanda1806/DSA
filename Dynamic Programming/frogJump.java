@@ -24,30 +24,35 @@ public class frogJump {
       return dp[0];
     }
 
-    //memoization
-    public static int frogJump(int n, int heights[]) {
-        if (n == 0 || n == 1) return 0;
 
+
+    //memoization
+    public static int frog(int n, int heights[]) {
         int[] dp = new int[n];
         Arrays.fill(dp, -1);
-         dp[0] = 0; // Initializing energy needed to reach the 1st stair
-
-        return soln(n, 0, heights, dp,0);
+        return rec(n-1, heights, dp, n-1);
     }
 
+    public static int rec(int level, int heights[], int[] dp, int n) {
+        if (level == 0)return dp[level]= 0;   //function to reach 0 from level
 
+        // Memoization check
+       if(dp[level]!=-1) return dp[level];
 
-    public static int soln(int n, int idx, int heights[], int[] dp,int ans) {
-        if (idx == n - 1) return ans;
-        if (dp[idx] != -1) return dp[idx];
+        int energy = Integer.MAX_VALUE;
 
-        int c = soln(n, idx + 1, heights, dp,ans+ Math.abs(heights[idx + 1] - heights[idx])) ;
-        int d = Integer.MAX_VALUE;
-        if (idx != n - 1) 
-            d = soln(n, idx + 2, heights, dp,ans+ Math.abs(heights[idx + 2] - heights[idx])) ;
+        
+            energy = Math.min(energy,rec(level-1,heights,dp,n) +
+                Math.abs(heights[n-level]-heights[n-level+1]));
+        
 
-        dp[idx] = Math.min(c, d);
-        return dp[idx];
+        if (level>1) {
+            energy = Math.min(energy,rec(level-2,heights,dp,n) +
+                Math.abs(heights[n-level]-heights[n-level+2]));
+        }
+
+        dp[level]=energy;
+        return energy;
     }
 }
 

@@ -74,4 +74,24 @@ public class DeleteNodePattern {
         }
     }
 
+    //del Half Node gfg 
+
+class Solution {
+    public Node RemoveHalfNodes(Node root) {
+        if(root==null) return root;
+        
+        Node left = RemoveHalfNodes(root.left);
+        Node right = RemoveHalfNodes(root.right);
+        
+        root.left = left;
+        root.right = right;
+        if(left!=null && right==null) return left;
+        if(right!=null && left==null) return right;
+        
+        return root;
+        
+    }
+}
+
+
 }
